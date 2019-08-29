@@ -1,0 +1,3 @@
+/home/nancy/Udacity/System-Monitor/build/CMakeFiles/rebuild_cache.dir
+/home/nancy/Udacity/System-Monitor/build/CMakeFiles/monitor.dir
+/home/nancy/Udacity/System-Monitor/build/CMakeFiles/edit_cache.dir
