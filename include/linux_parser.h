@@ -7,7 +7,7 @@
 
 namespace LinuxParser {
 // Paths
-const std::string kProcDirectory{"/proc/"};
+const std::string kProcDirectory{"/proc"};
 const std::string kCmdlineFilename{"/cmdline"};
 const std::string kCpuinfoFilename{"/cpuinfo"};
 const std::string kStatusFilename{"/status"};
@@ -52,6 +52,6 @@ std::string Ram(int pid);
 std::string Uid(int pid);
 std::string User(int pid);
 long int UpTime(int pid);
-};  // namespace LinuxParser
+}; // namespace LinuxParser
 
 #endif
