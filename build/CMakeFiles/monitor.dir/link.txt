@@ -1,1 +1,0 @@
-/usr/bin/c++    -rdynamic CMakeFiles/monitor.dir/src/format.cpp.o CMakeFiles/monitor.dir/src/linux_parser.cpp.o CMakeFiles/monitor.dir/src/main.cpp.o CMakeFiles/monitor.dir/src/ncurses_display.cpp.o CMakeFiles/monitor.dir/src/process.cpp.o CMakeFiles/monitor.dir/src/processor.cpp.o CMakeFiles/monitor.dir/src/system.cpp.o  -o monitor -lcurses -lform 
