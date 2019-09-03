@@ -1,2 +1,6 @@
-.vscode/settings.json
-build/
+monitor
+a.out
+settings.json
+*.o
+build/*
+*.json
