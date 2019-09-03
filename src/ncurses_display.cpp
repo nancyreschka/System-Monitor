@@ -1,5 +1,5 @@
-#include <chrono>
 #include <curses.h>
+#include <chrono>
 #include <string>
 #include <thread>
 #include <vector>
@@ -83,10 +83,10 @@ void NCursesDisplay::DisplayProcesses(std::vector<Process> &processes,
 }
 
 void NCursesDisplay::Display(System &system, int n) {
-  initscr();     // start ncurses
-  noecho();      // do not print input values
-  cbreak();      // terminate ncurses on ctrl + c
-  start_color(); // enable color
+  initscr();      // start ncurses
+  noecho();       // do not print input values
+  cbreak();       // terminate ncurses on ctrl + c
+  start_color();  // enable color
 
   int x_max{getmaxx(stdscr)};
   WINDOW *system_window = newwin(9, x_max - 1, 0, 0);

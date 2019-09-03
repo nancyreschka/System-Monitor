@@ -8,14 +8,14 @@ using std::string;
 using std::vector;
 
 class Processor {
-public:
+ public:
   float Utilization();
 
   // constructor
   Processor();
 
   // Declare any necessary private members
-private:
+ private:
   // the values of the CPU that were previously determined
   // previous total cpu time since boot =
   // user+nice+system+idle+iowait+irq+softirq+steal

@@ -8,7 +8,7 @@
 #include "processor.h"
 
 class System {
-public:
+ public:
   Processor &Cpu();
   std::vector<Process> &Processes();
   // Return the system's memory utilization
@@ -21,7 +21,7 @@ public:
   std::string OperatingSystem();
 
   // TODO: Define any necessary private members
-private:
+ private:
   Processor cpu_ = {};
   std::vector<Process> processes_ = {};
 };

@@ -1,7 +1,7 @@
+#include <unistd.h>
 #include <cctype>
 #include <sstream>
 #include <string>
-#include <unistd.h>
 #include <vector>
 
 #include "process.h"
