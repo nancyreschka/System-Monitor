@@ -13,11 +13,14 @@ float Processor::Utilization() {
   // read current cpu values from file system
   vector<long> cpuValues = convertToLong(LinuxParser::CpuUtilization());
   // total cpu time since boot = user+nice+system+idle+iowait+irq+softirq+steal
-  float totalCpuTime = cpuValues[0] + cpuValues[1] + cpuValues[2] +
-                       cpuValues[3] + cpuValues[4] + cpuValues[5] +
-                       cpuValues[6] + cpuValues[7];
+  float totalCpuTime =
+      cpuValues[LinuxParser::kUser_] + cpuValues[LinuxParser::kNice_] +
+      cpuValues[LinuxParser::kSystem_] + cpuValues[LinuxParser::kIdle_] +
+      cpuValues[LinuxParser::kIOwait_] + cpuValues[LinuxParser::kIRQ_] +
+      cpuValues[LinuxParser::kSoftIRQ_] + cpuValues[LinuxParser::kSteal_];
   // idle time since boot = idle + iowait
-  float idleCpuTime = cpuValues[3] + cpuValues[4];
+  float idleCpuTime =
+      cpuValues[LinuxParser::kIdle_] + cpuValues[LinuxParser::kIOwait_];
 
   // calculate the cpu usage since last update
   float diffIdle = idleCpuTime - prevIdleCpuTime;
