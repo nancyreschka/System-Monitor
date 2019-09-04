@@ -43,12 +43,16 @@ void Process::calculateCpuUsage() {
   // read values from filesystem
   long uptime = LinuxParser::UpTime();
   vector<float> val = LinuxParser::CpuUtilization(Pid());
-  // add utime, stime, cutime, cstime (they are in seconds)
-  float totaltime = val[kUtime_] + val[kStime_] + val[kCutime_] + val[kCstime_];
-  float seconds = uptime - val[kStarttime_];
-  // calculate the processes CPU usage
-  cpuUsage_ = totaltime / seconds;
-  ;
+  // only if the values could be read sucessfully
+  if (val.size() == 5) {
+    // add utime, stime, cutime, cstime (they are in seconds)
+    float totaltime =
+        val[kUtime_] + val[kStime_] + val[kCutime_] + val[kCstime_];
+    float seconds = uptime - val[kStarttime_];
+    // calculate the processes CPU usage
+    cpuUsage_ = totaltime / seconds;
+  } else
+    cpuUsage_ = 0;
 }
 
 // determine the user name that generated this process and save in user_
