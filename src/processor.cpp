@@ -37,7 +37,11 @@ vector<long> Processor::convertToLong(vector<string> values) {
   vector<long> convertedValues{};
 
   for (int it = 0; it < (int)values.size(); it++) {
-    convertedValues.push_back(std::stol(values[it]));
+    try {
+      convertedValues.push_back(std::stol(values[it]));
+    } catch (const std::invalid_argument& arg) {
+      convertedValues.push_back((long)0);
+    }
   }
   return convertedValues;
 }

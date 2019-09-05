@@ -51,8 +51,8 @@ string LinuxParser::Kernel() {
 // Read and return the process IDs
 vector<int> LinuxParser::Pids() {
   vector<int> pids;
-  DIR *directory = opendir(kProcDirectory.c_str());
-  struct dirent *file;
+  DIR* directory = opendir(kProcDirectory.c_str());
+  struct dirent* file;
   while ((file = readdir(directory)) != nullptr) {
     // Is this a directory?
     if (file->d_type == DT_DIR) {
@@ -107,13 +107,16 @@ float LinuxParser::MemoryUtilization() {
 long LinuxParser::UpTime() {
   string line;
   string wholeTime;
-  string idleTime;
   std::ifstream filestream(kProcDirectory + kUptimeFilename);
   if (filestream.is_open()) {
     while (std::getline(filestream, line)) {
       std::istringstream linestream(line);
-      while (linestream >> wholeTime >> idleTime) {
-        return std::stol(wholeTime);
+      while (linestream >> wholeTime) {
+        try {
+          return std::stol(wholeTime);
+        } catch (const std::invalid_argument& arg) {
+          return 0;
+        }
       }
     }
   }
@@ -176,7 +179,11 @@ int LinuxParser::TotalProcesses() {
       std::istringstream linestream(line);
       while (linestream >> key >> value) {
         if (key == "processes") {
-          return std::stol(value);
+          try {
+            return std::stol(value);
+          } catch (const std::invalid_argument& arg) {
+            return 0;
+          }
         }
       }
     }
@@ -195,7 +202,11 @@ int LinuxParser::RunningProcesses() {
       std::istringstream linestream(line);
       while (linestream >> key >> value) {
         if (key == "procs_running") {
-          return std::stol(value);
+          try {
+            return std::stol(value);
+          } catch (const std::invalid_argument& arg) {
+            return 0;
+          }
         }
       }
     }
@@ -205,15 +216,12 @@ int LinuxParser::RunningProcesses() {
 
 // Read and return the command associated with a process
 string LinuxParser::Command(int pid) {
-  string line;
-  string key;
   string value = "";
   std::ifstream filestream(kProcDirectory + "/" + std::to_string(pid) +
                            kCmdlineFilename);
   if (filestream.is_open()) {
-    while (std::getline(filestream, value)) {
-      return value;
-    }
+    std::getline(filestream, value);
+    return value;
   }
   return value;
 }
@@ -331,8 +339,12 @@ long LinuxParser::UpTime(int pid) {
         if (i == kStarttime_) {
           // read the starttime value in clock ticks and convert to seconds
           // devide by clock ticks per second
-          uptime = std::stol(value) / sysconf(_SC_CLK_TCK);
-          return uptime;
+          try {
+            uptime = std::stol(value) / sysconf(_SC_CLK_TCK);
+            return uptime;
+          } catch (const std::invalid_argument& arg) {
+            return 0;
+          }
         }
       }
     }

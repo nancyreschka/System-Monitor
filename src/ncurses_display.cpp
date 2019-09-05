@@ -83,10 +83,11 @@ void NCursesDisplay::DisplayProcesses(std::vector<Process> &processes,
         window, row, time_column,
         normalizeStringLength(Format::ElapsedTime(processes[i].UpTime()), 9)
             .c_str());
-    mvwprintw(window, row, command_column,"");
+    mvwprintw(window, row, command_column, "");
     mvwprintw(window, row, command_column,
-              processes[i].Command()
-                  .substr(0, window->_maxx - 46)
+              normalizeStringLength(
+                  processes[i].Command().substr(0, window->_maxx - 46).c_str(),
+                  window->_maxx - 46)
                   .c_str());
   }
 }
@@ -98,7 +99,7 @@ std::string NCursesDisplay::normalizeStringLength(string s,
   if (s.length() < length) {
     norm = s;
     for (int i = 0; i < fillIn; i++) {
-      norm = norm + " ";
+      norm.append(" ");
     }
   } else
     return s;

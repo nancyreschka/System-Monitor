@@ -64,8 +64,12 @@ void Process::determineRam() {
   // read kB value from file
   string val = LinuxParser::Ram(Pid());
   // convert into MB
-  long conv = std::stol(val) / 1000;
-  ram_ = std::to_string(conv);
+  try {
+    long conv = std::stol(val) / 1000;
+    ram_ = std::to_string(conv);
+  } catch (const std::invalid_argument& arg) {
+    ram_ = "0";
+  }
 }
 // determine the age of this process and save in uptime_
 void Process::determineUptime() {
